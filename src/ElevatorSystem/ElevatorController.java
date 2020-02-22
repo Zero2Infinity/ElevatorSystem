@@ -1,6 +1,7 @@
 package ElevatorSystem;
 
-import ElevatorSystem.Components.Elevator;
+import ElevatorSystem.Parts.Elevator;
+import ElevatorSystem.Request.Request;
 
 // This class knows how to operate elevator
 public class ElevatorController implements Runnable {
@@ -24,19 +25,15 @@ public class ElevatorController implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(">>> " + name + ": started request: " + request.name);
+        System.out.println(">>> " + name + ": started request: " + request.getName());
         if (request != null) {
-            if (request.type == Request.CALL_TYPE.FLOOR) {
-                elevator.moveTo(false, request.floorButton.sourceFloor);
-            } else if (request.type == Request.CALL_TYPE.ELEVATOR) {
-                elevator.moveTo(true, request.elevatorButton.destinationFloor);
-            }
+			elevator.moveTo(request.getButton().getFloor());
             completed(request);
         }
     }
 
     private synchronized void completed(Request request) {
-        System.out.println(">>> " + name + ": completed request: " + request.name);
+        System.out.println(">>> " + name + ": completed request: " + request.getName());
         this.elevator.setCurrState(Elevator.STATE.IDLE);
     }
 

@@ -1,9 +1,12 @@
-package ElevatorSystem.Components;
-
-import ElevatorSystem.Components.Button.ElevatorButton;
+package ElevatorSystem.Parts;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ElevatorSystem.Parts.Button.Button;
+import ElevatorSystem.Parts.Button.ButtonFactory;
+import ElevatorSystem.Parts.Button.ElevatorButton;
+import ElevatorSystem.Parts.Button.Button.ButtonType;
 
 public class Elevator {
 
@@ -12,16 +15,17 @@ public class Elevator {
 	}
 
 	public int id;
-	Door door;
-	List<ElevatorButton> floorButtons;
-	STATE currState;
-	int currFloor;
-	boolean isLoaded; 	// is loaded with passengers
+	private Door door;
+	private List<Button> floorButtons;
+	private STATE currState;
+	private int currFloor;
+	private boolean isLoaded; 	// is loaded with passengers
 
 	public Elevator(int id, int totalFloors) {
 		floorButtons = new ArrayList<>(totalFloors);
 		for (int i = 0; i < totalFloors; i++) {
-			this.floorButtons.add(new ElevatorButton(i));
+			this.floorButtons.add(new ButtonFactory().getButton(ButtonType.FLOOR, i));
+			
 		}
 		this.id = id;
 		this.currState = STATE.IDLE;
@@ -30,7 +34,7 @@ public class Elevator {
 		this.isLoaded = false;
 	}
 
-	public void setFloorButtons(List<ElevatorButton> buttons) {
+	public void setFloorButtons(List<Button> buttons) {
 		this.floorButtons = buttons;
 	}
 
@@ -42,16 +46,14 @@ public class Elevator {
 		this.currState = currentState;
 	}
 
-	public void moveTo(boolean isLoaded, int to) {
+	public void moveTo(int to) {
 		this.currState = STATE.RUNNING;
 		if (currFloor == to) {
 			open();
-			// if (isLoaded == true) unload(); else load();
 			close();
 		} else {
 			System.out.println(">>>> move elevator(" + id + ") from: " + currFloor + " to: " + to);
 			open();
-			// if (isLoaded == true) unload(); else load();
 			close();
 			this.currFloor = to;
 		}
@@ -69,11 +71,4 @@ public class Elevator {
 		door.close();
 	}
 
-	private void unload() {
-		System.out.println(">>>> unloading passengers");
-	}
-
-	private void load() {
-		System.out.println(">>>> loading passengers");
-	}
 }

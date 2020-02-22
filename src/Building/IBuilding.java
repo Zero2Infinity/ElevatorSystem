@@ -1,4 +1,4 @@
-package ElevatorSystem;
+package Building;
 
 public interface IBuilding {
     int getNumberOfElevators();

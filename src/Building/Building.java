@@ -1,4 +1,4 @@
-import ElevatorSystem.IBuilding;
+package Building;
 
 public class Building implements IBuilding {
     public static final int totalFloors = 5;

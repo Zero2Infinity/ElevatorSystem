@@ -1,13 +1,20 @@
-package ElevatorSystem.Components.Button;
+package ElevatorSystem.Parts.Button;
 
 public class FloorButton extends Button {
 
-    public int sourceFloor;
+    private int sourceFloor;
 
-    public FloorButton(int floor) {
+    @Override
+    protected Button create(int floor) {
         this.sourceFloor = floor;
-        this.type = Button.TYPE.FLOOR;
-        this.lightStatus = LIGHT.OFF;
+        this.type = ButtonType.FLOOR;
+        this.light = ButtonLight.OFF;
+        return this;
     }
+
+	@Override
+	public int getFloor() {
+		return sourceFloor;
+	}
 
 }

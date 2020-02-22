@@ -1,15 +1,18 @@
-package ElevatorSystem.Components.Button;
+package ElevatorSystem.Parts.Button;
 
 public abstract class Button {
 
-	public enum TYPE {
+	public enum ButtonType {
 		FLOOR, ELEVATOR
 	}
 
-	public enum LIGHT {
+	public enum ButtonLight {
 		ON, OFF
 	}
-
-	public TYPE type;
-	public LIGHT lightStatus;
+	public ButtonType type;
+	public ButtonLight light;
+	
+	protected abstract Button create(int floor);
+	public abstract int getFloor();
+	
 }

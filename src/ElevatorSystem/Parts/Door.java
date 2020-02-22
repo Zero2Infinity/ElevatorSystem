@@ -1,4 +1,4 @@
-package ElevatorSystem.Components;
+package ElevatorSystem.Parts;
 
 public class Door {
 

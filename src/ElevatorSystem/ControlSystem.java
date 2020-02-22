@@ -1,6 +1,7 @@
 package ElevatorSystem;
 
-import ElevatorSystem.Components.Elevator;
+import ElevatorSystem.Parts.Elevator;
+import ElevatorSystem.Request.Request;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import Building.IBuilding;
 
 public class ControlSystem implements Runnable {
 	private Queue<Request> requestQueue = new LinkedList<>();
@@ -44,7 +47,7 @@ public class ControlSystem implements Runnable {
 		while(running) {
 		    if (!requestQueue.isEmpty()) {
 		    	Request request = requestQueue.poll();
-				System.out.println("> received call request: " + request.name);
+				System.out.println("> received call request: " + request.getName());
 		    	Runnable runnable = waitForNextEC(request);
 		    	pool.execute(runnable);
 			} else {
